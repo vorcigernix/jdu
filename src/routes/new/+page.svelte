@@ -2,7 +2,7 @@
 	import { getDay } from 'date-fns';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
-	import { userNameStore, newEventStore } from '$lib/localStore.js';
+	import { userNameStore } from '$lib/localStore.js';
 
 	/** @type {import('./$types').ActionData} */
 	export let form;
@@ -15,7 +15,7 @@
 </script>
 
 {#if form?.success}
-	<section class="py-6  text-gray-50">
+	<section class="py-6  text-zinc-50">
 		<div
 			class="container mx-auto flex flex-col items-center justify-center p-4 space-y-8 md:p-10 md:px-24 xl:px-48"
 		>
@@ -31,12 +31,12 @@
 			</div>
 			<div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-8">
 				<button
-					class="px-8 py-3 text-lg font-semibold  bg-amber-500 text-gray-900"
+					class="px-8 py-3 text-lg font-semibold  bg-amber-500 text-zinc-900"
 					on:click={handleClick}>Zkopíruj adresu</button
 				>
 				<a
 					href={`https://${$page.url.host}/events/${form.url}`}
-					class="px-8 py-3 text-lg font-normal border  bg-gray-100 text-gray-900 border-gray-300"
+					class="px-8 py-3 text-lg font-normal border  bg-zinc-100 text-zinc-900 border-zinc-300"
 					>Jdi na událost</a
 				>
 			</div>

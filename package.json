@@ -11,7 +11,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
-		"@sveltejs/kit": "next",
+		"@sveltejs/kit": "1.0.0-next.587",
 		"@tailwindcss/forms": "^0.5.3",
 		"@tailwindcss/line-clamp": "^0.4.2",
 		"autoprefixer": "^10.4.13",
@@ -25,6 +25,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"-": "^0.0.1",
 		"@execution-machine/sdk": "^0.1.6",
 		"date-fns": "^2.29.3"
 	}

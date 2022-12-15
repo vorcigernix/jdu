@@ -3,20 +3,19 @@ import { exmInstance } from '$lib/exm';
 import { functionId } from '$lib/contracts/functionId.js';
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ params }) {
-
+export async function load({ params, parent }) {
     if (params.id) {
+        const { posts } = await parent();
+        if (posts[params.id]) { return posts[params.id]; }
+
         const inputs = [{
-            type: 'fetchPost',
+            type: 'fetchEvent',
             postId: params.id
         }];
-        //console.log(params.id);
-        const res = await exmInstance.functions.write(functionId, inputs);
-        const posts = res.data?.execution?.state?.posts || null;
-        const key = Object.keys(posts)[0];
-        const { [key]: record } = posts;
-        return { record };
-    }
+        const res = await exmInstance.functions.write(functionId, inputs, true, false);
+        const result = await res.data.execution.result;
+        if (!result) { throw error(404, 'Not found'); }
+        return await res.data.execution.result;
 
-    throw error(404, 'Not found');
+    }
 }

@@ -5,7 +5,7 @@
 			<span class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-red-500 to-yellow-500 background-animate headtext">*Jdu</span>
 		</a>
 		<nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-			<a href="/my" class="mr-5 hover:text-white">Moje události</a>
+			<a href="/my" class="mr-5 hover:text-white hidden">Moje události</a>
 			<a href="/about" class="mr-5 hover:text-white">O co tady de?</a>
 		</nav>
 		<a href="/new"

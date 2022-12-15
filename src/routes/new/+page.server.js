@@ -13,7 +13,7 @@ export const actions = {
     })) % 2 === 0);
     //console.log(evenweek);
     const data = await request.formData();
-    const weeks = data.get('frequency') === '1' ? [1, 2, 3, 4] : evenweek ? [2, 4, 6] : [1, 3, 5];
+    const weeks = data.get('frequency') === '1' ? [1, 2, 3, 4, 5, 6] : evenweek ? [2, 4, 6] : [1, 3, 5];
     const inputs = [{
       type: 'createPost',
       post: {
@@ -22,10 +22,11 @@ export const actions = {
         eventname: data.get('eventname'),
         eventname: data.get('eventname'),
         weeks: weeks,
-        day: data.get('day'),
+        day: data.getAll('day'),
         description: data.get('description'),
       }
     }];
+    console.log(inputs);
     try {
       const res = await exmInstance.functions.write(functionId, inputs);
       console.log(res.status);
