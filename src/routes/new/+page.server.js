@@ -20,7 +20,6 @@ export const actions = {
         id: uuid,
         author: data.get('username'),
         eventname: data.get('eventname'),
-        eventname: data.get('eventname'),
         weeks: weeks,
         day: data.getAll('day'),
         description: data.get('description'),
