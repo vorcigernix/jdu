@@ -2,9 +2,9 @@
 	import '../app.css';
 	import Navigation from '../components/Navigation.svelte';
 	/** @type {import('./$types').LayoutData} */
-	//export let data;
+	export let data;
 	//console.log(data);
 </script>
 
-<Navigation />
+<Navigation {data} />
 <slot />

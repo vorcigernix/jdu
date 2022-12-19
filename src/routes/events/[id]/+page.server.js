@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { exmInstance } from '$lib/exm';
 import { functionId } from '$lib/contracts/functionId.js';
-import { RRule } from 'rrule';
+import RRule from 'rrule';
 
 
 const returnFrequency = (freq) =>

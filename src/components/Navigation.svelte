@@ -1,16 +1,40 @@
+<script>
+	import AutoComplete from 'simple-svelte-autocomplete';
+	import { goto } from '$app/navigation';
+	export let data;
+	let selectedEvent;
+	const dataVals = Object.values(data?.posts);
+	const eventNamesAndIds = dataVals.map((event) => ({ id: event.id, eventname: event.eventname }));
+	function forwardtoevent() {
+		//console.log(selectedEvent);
+		if (selectedEvent?.id) {
+			goto(`/events/${selectedEvent.id}`);
+		}
+	}
+</script>
+
 <header aria-label="Page Header" class="bg-zinc-900/80 backdrop-blur fixed w-full">
 	<div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
 		<div class="flex items-center justify-end gap-4">
-			<div class="flex items-center gap-4">
+			<div class="flex items-center gap-4 opacity-90">
 				<div class="relative">
 					<label class="sr-only" for="search"> Hledání </label>
 
-					<input
-						class="h-10 w-full rounded-full border-none bg-white pl-4 pr-10 text-sm shadow-sm sm:w-56"
-						id="search"
-						type="search"
-						placeholder="Hledej událost..."
-					/>
+					<AutoComplete
+						class="h-10 w-full rounded-full border-none bg-white pl-4 pr-10 text-sm shadow-sm sm:w-56 text-zinc-900"
+						items={eventNamesAndIds}
+						bind:selectedItem={selectedEvent}
+						labelFieldName="eventname"
+						hideArrow
+						placeholder="hledej"
+						noInputStyles
+						dropdownClassName="rounded-xl mt-2 [&>*]:rounded-full"
+						onChange={forwardtoevent}
+					>
+						<div slot="item" class="my-2 text-sm" let:label>
+							{label}
+						</div>
+					</AutoComplete>
 
 					<button
 						type="button"
@@ -62,12 +86,17 @@
 				<span class="sr-only">Domů</span>
 				<span
 					class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-red-500 to-yellow-500 background-animate"
-					>*</span>
+					>*</span
+				>
 			</a>
 		</div>
 
-		<div class="hidden md:flex" >
-			<a href="/" class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-red-500 to-yellow-500 background-animate">JDU</a>
+		<div class="hidden md:flex">
+			<a
+				href="/"
+				class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-red-500 to-yellow-500 background-animate"
+				>JDU</a
+			>
 		</div>
 	</div>
 </header>
