@@ -1,27 +1,73 @@
-<header class="bg-zinc-900/80 backdrop-blur fixed w-full ">
-	<div class="mx-auto flex flex-wrap px-12 py-6 flex-col md:flex-row items-center">
-		<a href="/" class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
-         
-			<span class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-red-500 to-yellow-500 background-animate headtext">*Jdu</span>
-		</a>
-		<nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-			<a href="/my" class="mr-5 hover:text-white hidden">Moje události</a>
-			<a href="/about" class="mr-5 hover:text-white">O co tady de?</a>
-		</nav>
-		<a href="/new"
-			class="inline-flex items-center bg-amber-500 border-0 py-1 px-3 md:ml-12 focus:outline-none hover:bg-amber-600 text-zinc-900 font-bold mt-4 md:mt-0"
-			>Nová
-			<svg
-				fill="none"
-				stroke="currentColor"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="2"
-				class="w-4 h-4 ml-1"
-				viewBox="0 0 24 24"
-			>
-				<path d="M5 12h14M12 5l7 7-7 7" />
-			</svg>
-		</a>
+<header aria-label="Page Header" class="bg-zinc-900/80 backdrop-blur fixed w-full">
+	<div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+		<div class="flex items-center justify-end gap-4">
+			<div class="flex items-center gap-4">
+				<div class="relative">
+					<label class="sr-only" for="search"> Hledání </label>
+
+					<input
+						class="h-10 w-full rounded-full border-none bg-white pl-4 pr-10 text-sm shadow-sm sm:w-56"
+						id="search"
+						type="search"
+						placeholder="Hledej událost..."
+					/>
+
+					<button
+						type="button"
+						class="absolute top-1/2 right-1 -translate-y-1/2 rounded-full bg-gray-50 p-2 text-gray-600 transition hover:text-gray-700"
+					>
+						<span class="sr-only">Hledej</span>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-4 w-4"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+							/>
+						</svg>
+					</button>
+				</div>
+
+				<a
+					href="/about"
+					class="block shrink-0 rounded-full bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
+				>
+					<span class="sr-only">O co tady jde</span>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+						/>
+					</svg>
+				</a>
+			</div>
+
+			<span aria-hidden="true" class="block h-6 w-px rounded-full bg-gray-200" />
+
+			<a href="/" class="block shrink-0">
+				<span class="sr-only">Domů</span>
+				<span
+					class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-red-500 to-yellow-500 background-animate"
+					>*</span>
+			</a>
+		</div>
+
+		<div class="hidden md:flex" >
+			<a href="/" class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-red-500 to-yellow-500 background-animate">JDU</a>
+		</div>
 	</div>
 </header>

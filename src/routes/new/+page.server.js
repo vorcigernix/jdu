@@ -1,6 +1,6 @@
 import { exmInstance } from '$lib/exm';
 import { functionId } from '$lib/contracts/functionId.js';
-import { getWeekOfMonth } from 'date-fns';
+import { startOfWeek, addDays, addHours } from 'date-fns';
 import { newEventStore } from '$lib/localStore.js';
 
 
@@ -8,20 +8,17 @@ import { newEventStore } from '$lib/localStore.js';
 export const actions = {
   default: async ({ request }) => {
     const uuid = crypto.randomUUID();
-    const evenweek = ((getWeekOfMonth((new Date), {
-      weekStartsOn: 1
-    })) % 2 === 0);
-    //console.log(evenweek);
+    const weekstart = addHours(startOfWeek(new Date()), 12);
     const data = await request.formData();
-    const weeks = data.get('frequency') === '1' ? [1, 2, 3, 4, 5, 6] : evenweek ? [2, 4, 6] : [1, 3, 5];
     const inputs = [{
       type: 'createPost',
       post: {
         id: uuid,
         author: data.get('username'),
         eventname: data.get('eventname'),
-        weeks: weeks,
-        day: data.getAll('day'),
+        freq: data.get('frequency'),
+        interval: data.get('interval'),
+        dtstart: addDays(weekstart, Number(data.get('day'))),
         description: data.get('description'),
       }
     }];

@@ -14,6 +14,10 @@ body {
     animation: AnimationName 3s ease infinite;
 }
 
+.display {
+    font-family: 'Rubik Vinyl', cursive;
+}
+
 @keyframes AnimationName {
 
     0%,
@@ -24,6 +28,15 @@ body {
     50% {
         background-position: 100% 50%;
     }
+}
+
+.spin-button-none::-webkit-outer-spin-button,
+.spin-button-none::-webkit-inner-spin-button {
+    appearance: none;
+}
+
+.spin-button-none {
+    -moz-appearance: textfield;
 }
 
 @tailwind utilities;

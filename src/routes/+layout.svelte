@@ -7,5 +7,4 @@
 </script>
 
 <Navigation />
-<div class="pt-24" />
 <slot />
