@@ -20,6 +20,7 @@ export const actions = {
         interval: data.get('interval'),
         dtstart: addDays(weekstart, Number(data.get('day'))),
         description: data.get('description'),
+        attendance: [{ username: data.get('username'), attending: true, date: new Date() }]
       }
     }];
     console.log(inputs);
