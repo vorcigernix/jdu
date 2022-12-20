@@ -50,7 +50,15 @@
 		<div class="text-xl mt-2 font-bold mb-12">
 			{days[getDay(new Date(data.dtstart))]}
 			{data.interval}x
-			{frequency[data.freq]}
+			{frequency[data.freq]}, další je
+			<span class=" text-amber-500"
+				>{new Date(data.nextevent).toLocaleDateString('cs-CZ', {
+					weekday: 'long',
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				})}</span
+			>
 		</div>
 		<div class="flex p-4 space-x-4 rounded-lg md:space-x-6  text-gray-100">
 			<div class="flex justify-center p-2 align-middle rounded-full sm:p-4 bg-amber-500">
