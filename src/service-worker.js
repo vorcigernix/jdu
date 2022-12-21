@@ -30,8 +30,8 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-    // ignore POST requests etc
-    if (event.request.method !== 'GET') return;
+    // allow only GET requests and filter out non-http requests 
+    if (event.request.method !== 'GET' || !event.request.url.startsWith('http')) return;
 
     async function respond() {
         const url = new URL(event.request.url);
