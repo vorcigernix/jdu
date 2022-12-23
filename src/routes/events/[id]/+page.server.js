@@ -37,8 +37,15 @@ export async function load({ params, parent }) {
             interval: data.interval,
             dtstart: new Date(data.dtstart)
         });
-        data = { ...data, lastevent: rule.before(new Date(), false), nextevent: rule.after(new Date(), true) };
-        return data;
+        let nextevents = [];
+        let nextevent = new Date();
+        for (let i = 0; i < 5; i++) {
+            nextevent = rule.after(nextevent);
+            nextevents = [...nextevents, nextevent.toJSON()];
+        }
+        //console.log(nextevents);
+
+        return { ...data, nextevents: nextevents };
     }
 }
 
@@ -48,13 +55,12 @@ export const actions = {
         const formdata = await request.formData();
         const origdata = formdata.get('postdata');
         const username = formdata.get('username');
-        const attending = formdata.get('attending');
+        const dates = formdata.getAll('nextEventsChoice');
         const postdata = JSON.parse(origdata);
-
         const attendance = postdata.attendance || [];
         const addOrReplace = (arr, newObj) => [...arr.filter((o) => o.username !== newObj.username), { ...newObj }];
-        const newAttendance = addOrReplace(attendance, { username: username, attending: attending, date: (new Date).toJSON() });
-        //console.log("newAttServer", newAttendance);
+        const newAttendance = addOrReplace(attendance, { username: username, dates: dates.map((d) => new Date(d).toJSON()) });
+        console.log("newAttServer", newAttendance);
 
         const inputs = [{
             type: 'updatePost',

@@ -2,8 +2,9 @@
 	/** @type {import('./$types').PageData} */
 	/** @type {import('./$types').ActionData} */
 	import { userNameStore } from '$lib/localStore.js';
-	import { getWeekOfMonth, getDay } from 'date-fns';
+	import { format, getDay } from 'date-fns';
 	import { enhance } from '$app/forms';
+	import { blur, fade } from 'svelte/transition';
 
 	export let form;
 	export let data;
@@ -29,7 +30,9 @@
 	//this is horrible, but the new entry does not have attendance array
 	let currentAttendance = data.attendance
 		? data.attendance.filter((att) => {
-				return new Date(data.lastevent) < new Date(att.date) < new Date(data.nextevent);
+				console.log(att.dates, data.nextevents[0]);
+				return att.dates && att.dates.includes(data.nextevents[0]);
+				//return new Date(data.lastevent) < new Date(att.date) < new Date(data.nextevent);
 		  })
 		: [];
 	$: attendingCount =
@@ -37,11 +40,13 @@
 		currentAttendance.filter((a) => {
 			return a.attending === 'true';
 		}).length;
-	//console.log(attendingCount)
 </script>
 
 <section>
-	<div class="container mx-auto flex flex-col px-4 md:pt-44 pt-28  md:px-10 lg:px-32 xl:max-w-3xl">
+	<div
+		class="container mx-auto flex flex-col px-4 md:pt-44 pt-28  md:px-10 lg:px-32 xl:max-w-3xl"
+		transition:blur={{ amount: 10 }}
+	>
 		<h1 class="text-4xl font-bold leading-none sm:text-5xl">
 			{data.eventname}
 			<span class="text-amber-500">{data.author}</span>
@@ -52,7 +57,7 @@
 			{data.interval}x
 			{frequency[data.freq]}, další je
 			<span class=" text-amber-500"
-				>{new Date(data.nextevent).toLocaleDateString('cs-CZ', {
+				>{new Date(data.nextevents[0]).toLocaleDateString('cs-CZ', {
 					weekday: 'long',
 					year: 'numeric',
 					month: 'long',
@@ -85,99 +90,94 @@
 
 		<ul class="w-full items-center flex flex-wrap gap-4 mt-4">
 			{#each currentAttendance as { username, attending }}
-				{#if attending === 'true'}
-					<li class="list-none flex font-bold mb-4">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-6 h-6 mr-2 text-green-300"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-							/>
-						</svg>
-						{username}
-					</li>
-				{:else}
-					<li class="list-none flex font-bold mb-4">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-6 h-6 mr-2"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-							/>
-						</svg>
-						{username}
-					</li>
-				{/if}
+				<li class="list-none flex font-bold mb-4">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="w-6 h-6 mr-2 text-green-300"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+						/>
+					</svg>
+					{username}
+				</li>
 			{/each}
 		</ul>
+		{#if !submitting}
+			<div>
+				<form
+					method="POST"
+					transition:blur
+					class="mt-8 mb-0 max-w-md text-zinc-900"
+					use:enhance={({ form, data, action, cancel }) => {
+						//console.log('oldAtt', currentAttendance);
+						submitting = true;
+						currentAttendance = addOrReplace(currentAttendance, {
+							username: data.get('username'),
+							attending: data.get('attending'),
+							date: new Date().toJSON()
+						});
+						return async ({ result, update }) => {
+							if (result.type === 'success') {
+								$userNameStore = data.get('username');
+								//form.reset();
+							}
 
-		<div>
-			<form
-				method="POST"
-				class="mt-8 mb-0 max-w-md space-y-4 text-zinc-900"
-				use:enhance={({ form, data, action, cancel }) => {
-					//console.log('oldAtt', currentAttendance);
-					submitting = true;
-					currentAttendance = addOrReplace(currentAttendance, {
-						username: data.get('username'),
-						attending: data.get('attending'),
-						date: new Date().toJSON()
-					});
-					return async ({ result, update }) => {
-						if (result.type === 'success') {
-							$userNameStore = data.get('username');
-							//form.reset();
-						}
-
-						submitting = false;
-						//console.log('newAtt', currentAttendance);
-						//update();
-					};
-				}}
-			>
-				<input type="hidden" name="postdata" value={JSON.stringify(data)} />
-				<label for="username" class="text-sm text-zinc-400">Tvoje jméno</label>
-				<div class="flex">
-					<input
-						type="text"
-						name="username"
-						value={form?.username ?? $userNameStore}
-						class="w-full border-zinc-200 p-4 pr-12 text-sm shadow-sm text-zinc-900 rounded-full"
-						placeholder="takhle tě uvidí ostatní"
-						required
-					/>
-					<button
-						name="attending"
-						value={true}
-						class="ml-3 inline-block rounded-full  bg-amber-500 px-5 py-3 font-bold text-zinc-900 hover:bg-amber-600  {submitting &&
-							`opacity-10`}"
-					>
-						Jdu
-					</button>
-					<button
-						name="attending"
-						value={false}
-						class="ml-3 inline-block rounded-full  bg-zinc-50 px-5 py-3 font-bold text-zinc-900 hover:bg-amber-500  {submitting &&
-							`opacity-10`}"
-					>
-						Nejdu
-					</button>
-				</div>
-			</form>
-		</div>
+							submitting = false;
+							//console.log('newAtt', currentAttendance);
+							//update();
+						};
+					}}
+				>
+					<input type="hidden" name="postdata" value={JSON.stringify(data)} />
+					<label for="username" class="text-sm text-zinc-400">Tvoje jméno</label>
+					<div class="flex my-4">
+						<input
+							type="text"
+							name="username"
+							value={form?.username ?? $userNameStore}
+							class="w-full border-zinc-200 p-4 pr-12 text-sm shadow-sm text-zinc-900 rounded-full"
+							placeholder="takhle tě uvidí ostatní"
+							required
+						/>
+					</div>
+					<label for="username" class="text-sm text-zinc-400">Jdu</label>
+					<fieldset>
+						<div class="flex my-4 justify-between">
+							{#each data.nextevents as event (format(new Date(event), 'dM'))}
+								<div>
+									<input
+										type="checkbox"
+										id={format(new Date(event), 'dM')}
+										name="nextEventsChoice"
+										value={new Date(event).toJSON()}
+										class="hidden peer"
+									/>
+									<label
+										for={format(new Date(event), 'dM')}
+										class="px-4 py-2 rounded-full peer-checked:bg-amber-500 bg-zinc-800 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
+										>{format(new Date(event), 'd.M.')}</label
+									>
+								</div>
+							{/each}
+						</div>
+					</fieldset>
+					<div>
+						<button
+							name="attending"
+							class=" mt-8 inline-block rounded-full  bg-amber-500 px-5 py-3 font-bold text-zinc-900 hover:bg-amber-600"
+						>
+							Potvrdit
+						</button>
+					</div>
+				</form>
+			</div>
+		{/if}
 	</div>
 </section>
