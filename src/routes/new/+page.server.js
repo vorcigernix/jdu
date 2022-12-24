@@ -23,15 +23,15 @@ export const actions = {
         attendance: [{ username: data.get('username'), attending: true, date: new Date() }]
       }
     }];
-    console.log(inputs);
+    //console.log(inputs);
     try {
       const res = await exmInstance.functions.write(functionId, inputs);
-      console.log(res.status);
+      //console.log(res.status);
       newEventStore.set(data);
       return { success: true, url: uuid };
     }
     catch (error) {
-      console.log(error);
+      //console.log(error);
       return { success: false };
     }
   }

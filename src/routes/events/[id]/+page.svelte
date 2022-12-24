@@ -4,7 +4,7 @@
 	import { userNameStore } from '$lib/localStore.js';
 	import { format, getDay } from 'date-fns';
 	import { enhance } from '$app/forms';
-	import { blur, fade } from 'svelte/transition';
+	import { blur } from 'svelte/transition';
 
 	export let form;
 	export let data;
@@ -30,16 +30,26 @@
 	//this is horrible, but the new entry does not have attendance array
 	let currentAttendance = data.attendance
 		? data.attendance.filter((att) => {
-				console.log(att.dates, data.nextevents[0]);
 				return att.dates && att.dates.includes(data.nextevents[0]);
-				//return new Date(data.lastevent) < new Date(att.date) < new Date(data.nextevent);
 		  })
 		: [];
-	$: attendingCount =
-		currentAttendance &&
-		currentAttendance.filter((a) => {
-			return a.attending === 'true';
-		}).length;
+
+	const myAttendance = data.attendance.filter((att) => {
+		return att.username === form?.username || att.username === $userNameStore;
+	});
+
+	let pendingAttendance;
+
+	function checkMyAttendance(day) {
+		if (!Object.values(myAttendance)[0]) return false;
+		if (pendingAttendance) {
+			return pendingAttendance.includes(day);
+		} else {
+			return Object.values(myAttendance)[0]['dates'].includes(day);
+		}
+	}
+
+	$: attendingCount = currentAttendance && currentAttendance.length;
 </script>
 
 <section>
@@ -89,7 +99,7 @@
 		</div>
 
 		<ul class="w-full items-center flex flex-wrap gap-4 mt-4">
-			{#each currentAttendance as { username, attending }}
+			{#each currentAttendance as { username }}
 				<li class="list-none flex font-bold mb-4">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -120,9 +130,9 @@
 						submitting = true;
 						currentAttendance = addOrReplace(currentAttendance, {
 							username: data.get('username'),
-							attending: data.get('attending'),
-							date: new Date().toJSON()
+							dates: data.getAll('nextEventsChoice')
 						});
+						pendingAttendance = data.getAll('nextEventsChoice');
 						return async ({ result, update }) => {
 							if (result.type === 'success') {
 								$userNameStore = data.get('username');
@@ -157,6 +167,7 @@
 										id={format(new Date(event), 'dM')}
 										name="nextEventsChoice"
 										value={new Date(event).toJSON()}
+										checked={checkMyAttendance(new Date(event).toJSON())}
 										class="hidden peer"
 									/>
 									<label

@@ -60,7 +60,7 @@ export const actions = {
         const attendance = postdata.attendance || [];
         const addOrReplace = (arr, newObj) => [...arr.filter((o) => o.username !== newObj.username), { ...newObj }];
         const newAttendance = addOrReplace(attendance, { username: username, dates: dates.map((d) => new Date(d).toJSON()) });
-        console.log("newAttServer", newAttendance);
+        //console.log("newAttServer", newAttendance);
 
         const inputs = [{
             type: 'updatePost',
