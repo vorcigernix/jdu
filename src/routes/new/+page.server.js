@@ -20,14 +20,14 @@ export const actions = {
         interval: data.get('interval'),
         dtstart: addDays(weekstart, Number(data.get('day'))),
         description: data.get('description'),
-        attendance: [{ username: data.get('username'), attending: true, date: new Date() }]
+        attendance: [{ username: data.get('username'), dates: [new Date()] }]
       }
     }];
     //console.log(inputs);
     try {
       const res = await exmInstance.functions.write(functionId, inputs);
       //console.log(res.status);
-      newEventStore.set(data);
+      newEventStore.set(inputs);
       return { success: true, url: uuid };
     }
     catch (error) {

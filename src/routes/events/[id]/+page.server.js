@@ -1,10 +1,15 @@
 import { error } from '@sveltejs/kit';
 import { exmInstance } from '$lib/exm';
 import { functionId } from '$lib/contracts/functionId.js';
+import { newEventStore } from '$lib/localStore.js';
 import pkg from 'rrule';
-//import { RRule } from 'rrule';
 
 const { RRule } = pkg;
+let cacheEventValue;
+
+const unsubscribe = newEventStore.subscribe(value => {
+    cacheEventValue = value;
+});
 
 const returnFrequency = (freq) =>
     [
@@ -31,21 +36,27 @@ export async function load({ params, parent }) {
             const res = await exmInstance.functions.write(functionId, inputs, true, false);
             data = await res.data.execution.result;
         }
+        if (!data) {
+            data = cacheEventValue[0]['post'];
+        }
         if (!data) { throw error(404, 'Not found'); }
         const rule = new RRule({
             freq: returnFrequency(data.freq),
             interval: data.interval,
             dtstart: new Date(data.dtstart)
         });
+        console.log("Rule ", rule.toString());
         let nextevents = [];
         let nextevent = new Date();
         for (let i = 0; i < 5; i++) {
             nextevent = rule.after(nextevent);
             nextevents = [...nextevents, nextevent.toJSON()];
         }
-        //console.log(nextevents);
+        //console.log("data",data)
+        //console.log("cache", cacheEventValue[0]['post'])
+        console.log(nextevents);
 
-        return { ...data, nextevents: nextevents };
+        return { ...data, nextevents: nextevents.sort() };
     }
 }
 

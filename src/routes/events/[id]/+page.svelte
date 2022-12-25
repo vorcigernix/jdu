@@ -22,7 +22,7 @@
 		'Každý pátek',
 		'Každá sobota'
 	];
-	const frequency = ['denně', 'týdně', 'měsíčně', 'ročně'];
+	const frequency = ['dny', 'týdny', 'měsíce', 'roky'];
 	const addOrReplace = (arr, newObj) => [
 		...arr.filter((o) => o.username !== newObj.username),
 		{ ...newObj }
@@ -42,9 +42,12 @@
 
 	function checkMyAttendance(day) {
 		if (!Object.values(myAttendance)[0]) return false;
+		//console.log(myAttendance);
 		if (pendingAttendance) {
+			//console.log('pend');
 			return pendingAttendance.includes(day);
 		} else {
+			//console.log('fromdata');
 			return Object.values(myAttendance)[0]['dates'].includes(day);
 		}
 	}
@@ -64,8 +67,9 @@
 		<span class="mt-8 text-lg">{data.description} </span>
 		<div class="text-xl mt-2 font-bold mb-12">
 			{days[getDay(new Date(data.dtstart))]}
-			{data.interval}x
-			{frequency[data.freq]}, další je
+			{#if data.interval > 1}
+			jednou za {data.interval}
+			{frequency[data.freq]}, {/if} další je
 			<span class=" text-amber-500"
 				>{new Date(data.nextevents[0]).toLocaleDateString('cs-CZ', {
 					weekday: 'long',
@@ -160,7 +164,7 @@
 					<label for="username" class="text-sm text-zinc-400">Jdu</label>
 					<fieldset>
 						<div class="flex my-4 justify-between">
-							{#each data.nextevents as event (format(new Date(event), 'dM'))}
+							{#each data.nextevents as event}
 								<div>
 									<input
 										type="checkbox"
