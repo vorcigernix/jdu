@@ -7,7 +7,7 @@ const inputs = [{
 }];
 
 const res = await exmInstance.functions.write(functionId, inputs, true, false);
-console.log(res.data.execution);
+//console.log(res.data.execution);
 //const posts = res.data?.execution?.state?.posts || null;
 //console.log(posts);
 //const key = Object.keys(posts)[0];
