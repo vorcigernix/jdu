@@ -4,7 +4,7 @@
 </script>
 
 {#key pathname}
-	<div in:fade out:blur>
+	<div in:fade>
 		<slot />
 	</div>
 {/key}

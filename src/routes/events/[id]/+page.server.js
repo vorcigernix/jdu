@@ -12,14 +12,32 @@ const unsubscribe = newEventStore.subscribe(value => {
     cacheEventValue = value;
 });
 
-const returnFrequency = (freq) =>
-    [
-        RRule.DAILY,
-        RRule.WEEKLY,
-        RRule.MONTHLY,
-        RRule.YEARLY
-    ][freq];
+function getFreq(freq) {
+    switch (freq) {
+        case 0: return RRule.DAILY;
+        case 1: return RRule.WEEKLY;
+        case 2: return RRule.MONTHLY;
+        default: return null;
+    }
+}
 
+function getDay(day) {
+    switch (day) {
+        case 0: return RRule.SU;
+        case 1: return RRule.MO;
+        case 2: return RRule.TU;
+        case 3: return RRule.WE;
+        case 4: return RRule.TH;
+        case 5: return RRule.FR;
+        case 6: return RRule.SA;
+        default: return null;
+    }
+}
+
+function getWeekDays(days, pattern) {
+    if (!days || days === [] || pattern === '0') return null;
+    return days.map((d) => getDay(Number(d)));
+}
 
 
 /** @type {import('./$types').PageServerLoad} */
@@ -27,6 +45,7 @@ export async function load({ params, parent }) {
     if (params.id) {
         const { posts } = await parent();
         let data = (posts[params.id]);
+        console.log('parent', data);
         //if (posts[params.id]) { return posts[params.id]; }
         const inputs = [{
             type: 'fetchEvent',
@@ -36,30 +55,36 @@ export async function load({ params, parent }) {
             console.warn("need to refetch");
             const res = await exmInstance.functions.write(functionId, inputs, true, false);
             data = await res.data.execution.result;
+            console.log('fetched', data);
         }
         if (!data) {
             data = cacheEventValue[0]['post'];
+            console.log('state', data);
         }
         if (!data) { throw error(404, 'Not found'); }
+
         const rule = new RRule({
-            freq: returnFrequency(data.freq),
+            freq: getFreq(Number(data.freq)),
             dtstart: new Date(data.dtstart),
             tzid: 'Europe/Prague',
             interval: Number(data.interval),
-            wkst: RRule.MO,
-            //byweekday: RRule.MO
-        });
-        console.log("Rule ", rule.toText());
+            byweekday: getWeekDays(data.days, Number(data.pattern)),
+            bymonthday: data.pattern === '0' ? data.dates.split(',').map((d) => Number(d)) || null : null,
+            bysetpos: data.pattern === '1' ? [Number(data.weeknum)] : null
+        }, true);
+
+        console.log(rule);
+        //console.log("Rule ", rule.toText());
         let nextevents = [];
         let nextevent = new Date();
         for (let i = 0; i < 5; i++) {
             nextevent = rule.after(nextevent);
-            console.log(i, nextevent);
+            //console.log(i, nextevent);
             nextevents = [...nextevents, nextevent.toJSON()];
         }
         //console.log("data",data)
         //console.log("cache", cacheEventValue[0]['post'])
-        //console.log(nextevents);
+        console.log(nextevents);
 
         return { ...data, nextevents: nextevents.sort() };
     }
@@ -86,6 +111,10 @@ export const actions = {
                 eventname: postdata.eventname,
                 freq: postdata.freq,
                 interval: postdata.interval,
+                days: postdata.days,
+                pattern: postdata.pattern,
+                dates: postdata.dates,
+                weeknum: postdata.weeknum,
                 dtstart: postdata.dtstart,
                 description: postdata.description,
                 attendance: newAttendance

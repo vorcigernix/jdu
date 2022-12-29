@@ -1,5 +1,5 @@
 <section class=" text-zinc-50">
-	<div class="container flex flex-col justify-center p-4 mx-auto md:p-8 pt-24 md:pt-44">
+	<div class="container flex flex-col justify-center p-4 mx-auto md:p-8 pt-24">
 		<p class="p-2 text-sm font-medium tracking-wider text-center uppercase">
 			Otázky a odpovědi bez Moravce
 		</p>

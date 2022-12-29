@@ -10,6 +10,8 @@ export const actions = {
     const uuid = crypto.randomUUID();
     const weekstart = addHours(startOfWeek(new Date()), 12);
     const data = await request.formData();
+    //console.log(data);
+
     const inputs = [{
       type: 'createPost',
       post: {
@@ -18,12 +20,16 @@ export const actions = {
         eventname: data.get('eventname'),
         freq: data.get('frequency'),
         interval: data.get('interval'),
-        dtstart: addDays(weekstart, Number(data.get('day'))),
+        days: data.getAll('day'),
+        pattern: data.get('pattern'),
+        dates: data.get('dates'),
+        weeknum: data.get('weeknum'),
+        dtstart: new Date().toUTCString(),
         description: data.get('description'),
-        attendance: [{ username: data.get('username'), dates: [new Date()] }]
+        attendance: [{ username: data.get('username'), dates: [new Date().toUTCString()] }]
       }
     }];
-    //console.log(inputs);
+    console.log(inputs);
     try {
       const res = await exmInstance.functions.write(functionId, inputs);
       //console.log(res.status);

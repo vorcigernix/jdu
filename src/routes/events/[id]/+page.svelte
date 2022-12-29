@@ -4,25 +4,14 @@
 	import { userNameStore } from '$lib/localStore.js';
 	import { format, getDay } from 'date-fns';
 	import { enhance } from '$app/forms';
-	import { blur } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
 	export let form;
 	export let data;
 
 	let submitting = false;
 
-	//console.log('client', data);
-
-	const days = [
-		'Každá neděle',
-		'Každé pondělí',
-		'Každé úterý',
-		'Každá středa',
-		'Každý čtvrtek',
-		'Každý pátek',
-		'Každá sobota'
-	];
-	const frequency = ['dny', 'týdny', 'měsíce', 'roky'];
+	const frequency = ['Denně', 'Týdně', 'Měsíčně', 'Ročně'];
 	const addOrReplace = (arr, newObj) => [
 		...arr.filter((o) => o.username !== newObj.username),
 		{ ...newObj }
@@ -57,20 +46,16 @@
 
 <section>
 	<div
-		class="container mx-auto flex flex-col px-4 md:pt-44 pt-28  md:px-10 lg:px-32 xl:max-w-3xl"
-		transition:blur={{ amount: 10 }}
+		class="container flex flex-col justify-center p-4 mx-auto md:p-8 pt-24 lg:pt-32 items-center"
 	>
-		<h1 class="text-4xl font-bold leading-none sm:text-5xl">
+		<h1 class="text-4xl leading-none sm:text-5xl">
 			{data.eventname}
-			<span class="text-amber-500">{data.author}</span>
+			<span class="text-yellow-500">{data.author}</span>
 		</h1>
 		<span class="mt-8 text-lg">{data.description} </span>
 		<div class="text-xl mt-2 font-bold mb-12">
-			{days[getDay(new Date(data.dtstart))]}
-			{#if data.interval > 1}
-			jednou za {data.interval}
-			{frequency[data.freq]}, {/if} další je
-			<span class=" text-amber-500"
+			{frequency[data.freq]}, další je
+			<span class=" text-yellow-500"
 				>{new Date(data.nextevents[0]).toLocaleDateString('cs-CZ', {
 					weekday: 'long',
 					year: 'numeric',
@@ -80,7 +65,7 @@
 			>
 		</div>
 		<div class="flex p-4 space-x-4 rounded-lg md:space-x-6  text-gray-100">
-			<div class="flex justify-center p-2 align-middle rounded-full sm:p-4 bg-amber-500">
+			<div class="flex justify-center p-2 align-middle rounded-full sm:p-4 bg-yellow-500">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
@@ -102,7 +87,7 @@
 			</div>
 		</div>
 
-		<ul class="w-full items-center flex flex-wrap gap-4 mt-4">
+		<ul class="w-full items-center flex flex-wrap gap-4 mt-4 justify-center">
 			{#each currentAttendance as { username }}
 				<li class="list-none flex font-bold mb-4">
 					<svg
@@ -127,7 +112,7 @@
 			<div>
 				<form
 					method="POST"
-					transition:blur
+					out:fade
 					class="mt-8 mb-0 max-w-md text-zinc-900"
 					use:enhance={({ form, data, action, cancel }) => {
 						//console.log('oldAtt', currentAttendance);
@@ -176,7 +161,7 @@
 									/>
 									<label
 										for={format(new Date(event), 'dM')}
-										class="px-4 py-2 rounded-full peer-checked:bg-amber-500 bg-zinc-800 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
+										class="px-4 py-2 rounded-full peer-checked:bg-yellow-500 bg-zinc-800 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
 										>{format(new Date(event), 'd.M.')}</label
 									>
 								</div>
@@ -186,7 +171,7 @@
 					<div>
 						<button
 							name="attending"
-							class=" mt-8 inline-block rounded-full  bg-amber-500 px-5 py-3 font-bold text-zinc-900 hover:bg-amber-600"
+							class=" mt-8 inline-block rounded-full  bg-yellow-500 px-5 py-3 font-bold text-zinc-900 hover:bg-yellow-600"
 						>
 							Potvrdit
 						</button>

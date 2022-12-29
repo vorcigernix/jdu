@@ -1,7 +1,13 @@
 <script>
 	import AutoComplete from 'simple-svelte-autocomplete';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { draw } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
+	import { onMount } from 'svelte';
 	export let data;
+	let ready = false;
+	onMount(() => (ready = true));
 	let selectedEvent;
 	const dataVals = Object.values(data?.posts);
 	const eventNamesAndIds = dataVals.map((event) => ({ id: event.id, eventname: event.eventname }));
@@ -13,90 +19,136 @@
 	}
 </script>
 
-<header aria-label="Page Header" class="bg-zinc-900/80 backdrop-blur fixed w-full">
-	<div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
-		<div class="flex items-center justify-end gap-4">
-			<div class="flex items-center gap-4 opacity-90">
-				<div class="relative">
-					<label class="sr-only" for="search"> Hledání </label>
-
-					<AutoComplete
-						class="h-10 w-full rounded-full border-none bg-white pl-4 pr-10 text-sm shadow-sm sm:w-56 text-zinc-900"
-						items={eventNamesAndIds}
-						bind:selectedItem={selectedEvent}
-						labelFieldName="eventname"
-						hideArrow
-						placeholder="hledej"
-						noInputStyles
-						dropdownClassName="rounded-xl mt-2 [&>*]:rounded-full"
-						onChange={forwardtoevent}
-					>
-						<div slot="item" class="my-2 text-sm" let:label>
-							{label}
-						</div>
-					</AutoComplete>
-
-					<button
-						type="button"
-						class="absolute top-1/2 right-1 -translate-y-1/2 rounded-full bg-gray-50 p-2 text-gray-600 transition hover:text-gray-700"
-					>
-						<span class="sr-only">Hledej</span>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-4 w-4"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							stroke-width="2"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-							/>
-						</svg>
-					</button>
-				</div>
-
+<header class="p-4 text-zinc-100">
+	<div class="container flex justify-between h-16 mx-auto">
+		<ul class="items-stretch hidden space-x-3 lg:flex">
+			<li class="flex">
 				<a
+					href="/"
+					class="flex items-center px-4 -mb-1 border-b-2 border-transparent"
+					class:active={$page.url.pathname === '/'}>Domu</a
+				>
+			</li>
+			<li class="flex">
+				<a
+					class:active={$page.url.pathname === '/about'}
 					href="/about"
-					class="block shrink-0 rounded-full bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
+					class="flex items-center px-4 -mb-1 border-b-2 border-transparent">O co jde?</a
 				>
-					<span class="sr-only">O co tady jde</span>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-5"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
-						/>
-					</svg>
-				</a>
-			</div>
-
-			<span aria-hidden="true" class="block h-6 w-px rounded-full bg-gray-200" />
-
-			<a href="/" class="block shrink-0">
-				<span class="sr-only">Domů</span>
-				<span
-					class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-red-500 to-yellow-500 background-animate"
-					>*</span
-				>
-			</a>
-		</div>
-
-		<div class="hidden md:flex">
-			<a
-				href="/"
-				class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-red-500 to-yellow-500 background-animate"
-				>JDU</a
+			</li>
+		</ul>
+		<a href="/" aria-label="Domu" class="flex items-center p-2">
+			<svg viewBox="0 0 200 200" class="md:w-16 text-zinc-900" xmlns="http://www.w3.org/2000/svg">
+				{#if ready}
+					<path
+						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
+						d="M 167.919 98.112 A 65.282 65.282 0 0 1 102.637 163.394 A 65.282 65.282 0 0 1 37.355 98.112 A 65.282 65.282 0 0 1 102.637 32.83 A 65.282 65.282 0 0 1 167.919 98.112 Z"
+						style="stroke: rgb(255, 255, 255); fill: none; stroke-width: 2px;"
+					/>
+					<path
+						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
+						d="M 70.361 51.331 A 14.642 14.642 0 0 1 55.719 65.973 A 14.642 14.642 0 0 1 41.077 51.331 A 14.642 14.642 0 0 1 55.719 36.689 A 14.642 14.642 0 0 1 70.361 51.331 Z"
+						style="stroke: rgb(255, 255, 255); stroke-width: 2px;"
+						fill="currentColor"
+					/>
+					<path
+						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
+						d="M 51.731 98.003 A 14.642 14.642 0 0 1 37.089 112.645 A 14.642 14.642 0 0 1 22.447 98.003 A 14.642 14.642 0 0 1 37.089 83.361 A 14.642 14.642 0 0 1 51.731 98.003 Z"
+						style="stroke: rgb(255, 255, 255); stroke-width: 2px;"
+						fill="currentColor"
+					/>
+					<path
+						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
+						d="M 70.377 144.673 A 14.642 14.642 0 0 1 55.735 159.315 A 14.642 14.642 0 0 1 41.093 144.673 A 14.642 14.642 0 0 1 55.735 130.031 A 14.642 14.642 0 0 1 70.377 144.673 Z"
+						style="stroke: rgb(255, 255, 255); stroke-width: 2px;"
+						fill="currentColor"
+					/>
+					<path
+						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
+						d="M 116.945 162.584 A 14.642 14.642 0 0 1 102.303 177.226 A 14.642 14.642 0 0 1 87.661 162.584 A 14.642 14.642 0 0 1 102.303 147.942 A 14.642 14.642 0 0 1 116.945 162.584 Z"
+						style="stroke: rgb(255, 255, 255); stroke-width: 15px;"
+						fill="currentColor"
+					/>
+					<path
+						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
+						d="M 164.128 144.696 A 14.642 14.642 0 0 1 149.486 159.338 A 14.642 14.642 0 0 1 134.844 144.696 A 14.642 14.642 0 0 1 149.486 130.054 A 14.642 14.642 0 0 1 164.128 144.696 Z"
+						style="stroke: rgb(255, 255, 255); stroke-width: 15px;"
+						fill="currentColor"
+					/>
+					<path
+						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
+						d="M 182.477 98.084 A 14.642 14.642 0 0 1 167.835 112.726 A 14.642 14.642 0 0 1 153.193 98.084 A 14.642 14.642 0 0 1 167.835 83.442 A 14.642 14.642 0 0 1 182.477 98.084 Z"
+						style="stroke: rgb(255, 255, 255); stroke-width: 15px;"
+						fill="currentColor"
+					/>
+					<path
+						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
+						d="M 163.71 51.059 A 14.642 14.642 0 0 1 149.068 65.701 A 14.642 14.642 0 0 1 134.426 51.059 A 14.642 14.642 0 0 1 149.068 36.417 A 14.642 14.642 0 0 1 163.71 51.059 Z"
+						style="stroke: rgb(255, 255, 255); stroke-width: 15px;"
+						fill="currentColor"
+					/>
+					<path
+						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
+						d="M 117.176 33.324 A 14.642 14.642 0 0 1 102.534 47.966 A 14.642 14.642 0 0 1 87.892 33.324 A 14.642 14.642 0 0 1 102.534 18.682 A 14.642 14.642 0 0 1 117.176 33.324 Z"
+						style="stroke: rgb(255, 255, 255); stroke-width: 2px;"
+						fill="currentColor"
+					/>
+				{/if}
+			</svg>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="currentColor"
+				viewBox="0 0 32 32"
+				class="w-8 h-8 text-yellow-400 hidden"
 			>
+				<path
+					d="M27.912 7.289l-10.324-5.961c-0.455-0.268-1.002-0.425-1.588-0.425s-1.133 0.158-1.604 0.433l0.015-0.008-10.324 5.961c-0.955 0.561-1.586 1.582-1.588 2.75v11.922c0.002 1.168 0.635 2.189 1.574 2.742l0.016 0.008 10.322 5.961c0.455 0.267 1.004 0.425 1.59 0.425 0.584 0 1.131-0.158 1.602-0.433l-0.014 0.008 10.322-5.961c0.955-0.561 1.586-1.582 1.588-2.75v-11.922c-0.002-1.168-0.633-2.189-1.573-2.742zM27.383 21.961c0 0.389-0.211 0.73-0.526 0.914l-0.004 0.002-10.324 5.961c-0.152 0.088-0.334 0.142-0.53 0.142s-0.377-0.053-0.535-0.145l0.005 0.002-10.324-5.961c-0.319-0.186-0.529-0.527-0.529-0.916v-11.922c0-0.389 0.211-0.73 0.526-0.914l0.004-0.002 10.324-5.961c0.152-0.090 0.334-0.143 0.53-0.143s0.377 0.053 0.535 0.144l-0.006-0.002 10.324 5.961c0.319 0.185 0.529 0.527 0.529 0.916z"
+				/>
+				<path
+					d="M22.094 19.451h-0.758c-0.188 0-0.363 0.049-0.515 0.135l0.006-0.004-4.574 2.512-5.282-3.049v-6.082l5.282-3.051 4.576 2.504c0.146 0.082 0.323 0.131 0.508 0.131h0.758c0.293 0 0.529-0.239 0.529-0.531v-0.716c0-0.2-0.11-0.373-0.271-0.463l-0.004-0.002-5.078-2.777c-0.293-0.164-0.645-0.26-1.015-0.26-0.39 0-0.756 0.106-1.070 0.289l0.010-0.006-5.281 3.049c-0.636 0.375-1.056 1.055-1.059 1.834v6.082c0 0.779 0.422 1.461 1.049 1.828l0.009 0.006 5.281 3.049c0.305 0.178 0.67 0.284 1.061 0.284 0.373 0 0.723-0.098 1.027-0.265l-0.012 0.006 5.080-2.787c0.166-0.091 0.276-0.265 0.276-0.465v-0.716c0-0.293-0.238-0.529-0.529-0.529z"
+				/>
+			</svg>
+		</a>
+		<div class="flex items-center md:space-x-4">
+			<div class="relative">
+				<AutoComplete
+					class="h-10 w-full rounded-md border-none pl-4 pr-10 text-sm shadow-sm sm:w-56 text-zinc-50 bg-zinc-800"
+					items={eventNamesAndIds}
+					bind:selectedItem={selectedEvent}
+					labelFieldName="eventname"
+					hideArrow
+					placeholder="hledej"
+					noInputStyles
+					dropdownClassName="rounded-md mt-2 [&>*]:rounded-md"
+					onChange={forwardtoevent}
+				>
+					<div slot="item" class="my-2 text-sm [&>*]:my-2 " let:label>
+						{label}
+					</div>
+				</AutoComplete>
+			</div>
 		</div>
+		<a href="/about" class="p-4 lg:hidden">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="w-6 h-6 text-gray-100"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+				/>
+			</svg>
+		</a>
 	</div>
 </header>
+
+<style>
+	.active {
+		@apply text-yellow-400 border-yellow-400;
+	}
+</style>
