@@ -28,7 +28,7 @@
 			name="Search"
 			bind:value={searchTerm}
 			placeholder="Hledej..."
-			class="w-52 py-3 pl-10 text-sm rounded-md sm:w-auto bg-zinc-800 border border-transparent outline outline-offset-2 outline-zinc-900 shadow-sm  focus:outline-yellow-300 focus:ring-2 focus:ring-yellow-400"
+			class="w-52 py-3 pl-10 text-sm rounded-md sm:w-auto bg-zinc-800 border border-transparent outline outline-offset-2 outline-zinc-900 shadow-sm  focus:outline-lime-500 focus:ring-2 focus:ring-lime-500"
 		/>
 		{#if searchTerm.length > 1}
 			<div

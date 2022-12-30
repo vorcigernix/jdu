@@ -50,12 +50,12 @@
 	>
 		<h1 class="text-4xl leading-none sm:text-5xl">
 			{data.eventname}
-			<span class="text-yellow-500">{data.author}</span>
+			<span class="text-lime-500">{data.author}</span>
 		</h1>
 		<span class="mt-8 text-lg">{data.description} </span>
 		<div class="text-xl mt-2 font-bold mb-12">
 			{frequency[data.freq]}, další je
-			<span class=" text-yellow-500"
+			<span class=" text-lime-500"
 				>{new Date(data.nextevents[0]).toLocaleDateString('cs-CZ', {
 					weekday: 'long',
 					year: 'numeric',
@@ -65,7 +65,7 @@
 			>
 		</div>
 		<div class="flex p-4 space-x-4 rounded-lg md:space-x-6  text-zinc-100">
-			<div class="flex justify-center p-2 align-middle rounded-full sm:p-4 bg-yellow-500">
+			<div class="flex justify-center p-2 align-middle rounded-full sm:p-4 bg-lime-500">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
@@ -96,7 +96,7 @@
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="w-6 h-6 mr-2 text-green-300"
+						class="w-6 h-6 mr-2 text-lime-500"
 					>
 						<path
 							stroke-linecap="round"
@@ -161,7 +161,7 @@
 									/>
 									<label
 										for={format(new Date(event), 'dM')}
-										class="px-4 py-2 rounded-full peer-checked:bg-yellow-500 bg-zinc-800 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
+										class="px-4 py-2 rounded-full peer-checked:bg-lime-500 bg-zinc-800 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
 										>{format(new Date(event), 'd.M.')}</label
 									>
 								</div>
@@ -171,7 +171,7 @@
 					<div>
 						<button
 							name="attending"
-							class=" mt-8 inline-block rounded-full  bg-yellow-500 px-5 py-3 font-bold text-zinc-900 hover:bg-yellow-600"
+							class=" mt-8 inline-block rounded-full  bg-lime-500 px-5 py-3 font-bold text-zinc-900 hover:bg-lime-600"
 						>
 							Potvrdit
 						</button>

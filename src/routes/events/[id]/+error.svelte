@@ -12,7 +12,7 @@
 			<a
 				rel="noopener noreferrer"
 				href="/"
-				class="px-8 py-3 font-semibold bg-yellow-500 text-zinc-900 rounded-full">OK</a
+				class="px-8 py-3 font-semibold bg-lime-500 text-zinc-900 rounded-full">OK</a
 			>
 		</div>
 	</div>

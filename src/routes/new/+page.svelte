@@ -30,7 +30,7 @@
 			class="container mx-auto flex flex-col items-center justify-center p-4 space-y-8 md:p-10 md:px-24 xl:px-48"
 		>
 			<h1
-				class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 via-red-500 to-yellow-500 background-animate text-center"
+				class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-lime-500 via-red-500 to-lime-500 background-animate text-center"
 			>
 				Jop, máš to tam.
 			</h1>
@@ -41,7 +41,7 @@
 			</div>
 			<div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-8">
 				<button
-					class="px-8 py-3 text-lg font-semibold  bg-yellow-500 text-zinc-900 rounded-full"
+					class="px-8 py-3 text-lg font-semibold  bg-lime-500 text-zinc-900 rounded-full"
 					on:click={handleClick}>Zkopíruj adresu</button
 				>
 				<a
@@ -198,7 +198,7 @@
 								/>
 								<label
 									for="frequencyChoice0"
-									class="px-4 py-2 rounded-l-full peer-checked:bg-yellow-500 bg-zinc-800 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
+									class="px-4 py-2 rounded-l-full peer-checked:bg-lime-500 bg-zinc-800 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
 									>Den</label
 								>
 							</div>
@@ -215,7 +215,7 @@
 								/>
 								<label
 									for="frequencyChoice1"
-									class="px-4 py-2 peer-checked:bg-yellow-500 bg-zinc-800 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
+									class="px-4 py-2 peer-checked:bg-lime-500 bg-zinc-800 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
 									>Tejden</label
 								>
 							</div>
@@ -231,7 +231,7 @@
 								/>
 								<label
 									for="frequencyChoice2"
-									class="px-4 py-2 rounded-r-full bg-zinc-800 peer-checked:bg-yellow-500 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
+									class="px-4 py-2 rounded-r-full bg-zinc-800 peer-checked:bg-lime-500 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
 									>Měsíc</label
 								>
 							</div>
@@ -254,7 +254,7 @@
 								/>
 								<label
 									for="mo"
-									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-yellow-500 peer-checked:font-bold peer-checked:text-zinc-900"
+									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-lime-500 peer-checked:font-bold peer-checked:text-zinc-900"
 									>Po</label
 								>
 							</div>
@@ -270,7 +270,7 @@
 								/>
 								<label
 									for="tue"
-									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-yellow-500 peer-checked:font-bold peer-checked:text-zinc-900"
+									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-lime-500 peer-checked:font-bold peer-checked:text-zinc-900"
 									>Út</label
 								>
 							</div>
@@ -286,7 +286,7 @@
 								/>
 								<label
 									for="wed"
-									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-yellow-500 peer-checked:font-bold peer-checked:text-zinc-900"
+									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-lime-500 peer-checked:font-bold peer-checked:text-zinc-900"
 									>St</label
 								>
 							</div>
@@ -302,7 +302,7 @@
 								/>
 								<label
 									for="thu"
-									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-yellow-500 peer-checked:font-bold peer-checked:text-zinc-900"
+									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-lime-500 peer-checked:font-bold peer-checked:text-zinc-900"
 									>Čt</label
 								>
 							</div>
@@ -318,7 +318,7 @@
 								/>
 								<label
 									for="fri"
-									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-yellow-500 peer-checked:font-bold peer-checked:text-zinc-900"
+									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-lime-500 peer-checked:font-bold peer-checked:text-zinc-900"
 									>Pá</label
 								>
 							</div>
@@ -334,7 +334,7 @@
 								/>
 								<label
 									for="sat"
-									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-yellow-500 peer-checked:font-bold peer-checked:text-zinc-900"
+									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-lime-500 peer-checked:font-bold peer-checked:text-zinc-900"
 									>So</label
 								>
 							</div>
@@ -350,7 +350,7 @@
 								/>
 								<label
 									for="sun"
-									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-yellow-500 peer-checked:font-bold peer-checked:text-zinc-900"
+									class="rounded-full w-8 h-8 justify-center items-center flex font-bold bg-zinc-900 text-zinc-50 cursor-pointer flex-grow p-2 text-center peer-checked:bg-lime-500 peer-checked:font-bold peer-checked:text-zinc-900"
 									>Ne</label
 								>
 							</div>
@@ -373,7 +373,7 @@
 									/>
 									<label
 										for="ptbydate"
-										class="px-4 py-1 rounded-2xl peer-checked:bg-yellow-500 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
+										class="px-4 py-1 rounded-2xl peer-checked:bg-lime-500 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
 										><span class="font-bold">{getDayNum()}</span> každej měsíc
 									</label>
 									<input type="hidden" name="dates" value={getDayNum()} />
@@ -382,7 +382,7 @@
 									<input type="radio" class="hidden peer" id="ptbyweek" name="pattern" value={1} />
 									<label
 										for="ptbyweek"
-										class="px-4 py-1 rounded-2xl peer-checked:bg-yellow-500 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
+										class="px-4 py-1 rounded-2xl peer-checked:bg-lime-500 peer-checked:text-zinc-900 text-zinc-50 cursor-pointer"
 										><span class="font-bold">{getWeekOfMonth(new Date())}</span> tejden každej měsíc
 									</label>
 									<input type="hidden" name="weeknum" value={getWeekOfMonth(new Date())} />
@@ -409,7 +409,7 @@
 					</p>
 
 					<button
-						class="ml-3 inline-block  bg-yellow-500 px-5 py-3 font-bold text-zinc-900 rounded-full"
+						class="ml-3 inline-block  bg-lime-500 px-5 py-3 font-bold text-zinc-900 rounded-full"
 					>
 						Založit
 					</button>
