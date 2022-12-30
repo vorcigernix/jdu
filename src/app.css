@@ -6,37 +6,4 @@ body {
     @apply text-zinc-50 bg-zinc-900
 }
 
-.background-animate {
-    background-size: 400%;
-
-    -webkit-animation: AnimationName 3s ease infinite;
-    -moz-animation: AnimationName 3s ease infinite;
-    animation: AnimationName 3s ease infinite;
-}
-
-.display {
-    font-family: 'Rubik Vinyl', cursive;
-}
-
-@keyframes AnimationName {
-
-    0%,
-    100% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-.spin-button-none::-webkit-outer-spin-button,
-.spin-button-none::-webkit-inner-spin-button {
-    appearance: none;
-}
-
-.spin-button-none {
-    -moz-appearance: textfield;
-}
-
 @tailwind utilities;
