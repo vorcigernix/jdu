@@ -28,7 +28,7 @@
 			</li>
 		</ul>
 		<a href="/" aria-label="Domu" class="flex items-center p-2">
-			<svg viewBox="0 0 200 200" class="md:w-16 text-zinc-900" xmlns="http://www.w3.org/2000/svg">
+			<svg viewBox="0 0 200 200" class=" w-10 md:w-16 text-zinc-900" xmlns="http://www.w3.org/2000/svg">
 				{#if ready}
 					<path
 						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
