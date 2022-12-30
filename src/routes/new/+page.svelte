@@ -409,8 +409,8 @@
 					</p>
 
 					<button
-						class="ml-3 inline-block  bg-lime-500 px-5 py-3 font-bold text-zinc-900 rounded-full"
-					>
+						class="inline-flex text-zinc-900 bg-lime-500 border-0 py-2 px-6 focus:outline-none hover:bg-lime-600 rounded-full text-lg"
+							><span class="text-xl mr-2 font-bold">* </span>
 						Založit
 					</button>
 				</div>
