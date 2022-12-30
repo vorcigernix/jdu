@@ -64,7 +64,7 @@
 				})}</span
 			>
 		</div>
-		<div class="flex p-4 space-x-4 rounded-lg md:space-x-6  text-gray-100">
+		<div class="flex p-4 space-x-4 rounded-lg md:space-x-6  text-zinc-100">
 			<div class="flex justify-center p-2 align-middle rounded-full sm:p-4 bg-yellow-500">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +112,7 @@
 			<div>
 				<form
 					method="POST"
-					out:fade
+					in:fade
 					class="mt-8 mb-0 max-w-md text-zinc-900"
 					use:enhance={({ form, data, action, cancel }) => {
 						//console.log('oldAtt', currentAttendance);
@@ -148,7 +148,7 @@
 					</div>
 					<label for="username" class="text-sm text-zinc-400">Jdu</label>
 					<fieldset>
-						<div class="flex my-4 justify-between">
+						<div class="flex my-4 justify-center gap-4 md:gap-6">
 							{#each data.nextevents as event}
 								<div>
 									<input

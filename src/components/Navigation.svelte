@@ -1,22 +1,12 @@
 <script>
-	import AutoComplete from 'simple-svelte-autocomplete';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { draw } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import { onMount } from 'svelte';
+	import Search from './Search.svelte';
 	export let data;
 	let ready = false;
 	onMount(() => (ready = true));
-	let selectedEvent;
-	const dataVals = Object.values(data?.posts);
-	const eventNamesAndIds = dataVals.map((event) => ({ id: event.id, eventname: event.eventname }));
-	function forwardtoevent() {
-		//console.log(selectedEvent);
-		if (selectedEvent?.id) {
-			goto(`/events/${selectedEvent.id}`);
-		}
-	}
 </script>
 
 <header class="p-4 text-zinc-100">
@@ -110,28 +100,13 @@
 			</svg>
 		</a>
 		<div class="flex items-center md:space-x-4">
-			<div class="relative">
-				<AutoComplete
-					class="h-10 w-full rounded-md border-none pl-4 pr-10 text-sm shadow-sm sm:w-56 text-zinc-50 bg-zinc-800"
-					items={eventNamesAndIds}
-					bind:selectedItem={selectedEvent}
-					labelFieldName="eventname"
-					hideArrow
-					placeholder="hledej"
-					noInputStyles
-					dropdownClassName="rounded-md mt-2 [&>*]:rounded-md"
-					onChange={forwardtoevent}
-				>
-					<div slot="item" class="my-2 text-sm [&>*]:my-2 " let:label>
-						{label}
-					</div>
-				</AutoComplete>
-			</div>
+				<Search {data}
+				/>
 		</div>
 		<a href="/about" class="p-4 lg:hidden">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="w-6 h-6 text-gray-100"
+				class="w-6 h-6 text-zinc-100"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
