@@ -16,6 +16,7 @@
 		...arr.filter((o) => o.username !== newObj.username),
 		{ ...newObj }
 	];
+	console.log('data', data);
 	//this is horrible, but the new entry does not have attendance array
 	let currentAttendance = data.attendance
 		? data.attendance.filter((att) => {
@@ -23,9 +24,13 @@
 		  })
 		: [];
 
+	console.log('attend', currentAttendance);
+
 	const myAttendance = data.attendance.filter((att) => {
 		return att.username === form?.username || att.username === $userNameStore;
 	});
+
+	console.log('myatt', myAttendance);
 
 	let pendingAttendance;
 
