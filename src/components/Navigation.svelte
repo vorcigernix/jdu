@@ -2,11 +2,9 @@
 	import { page } from '$app/stores';
 	import { draw } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
-	import { onMount } from 'svelte';
 	import Search from './Search.svelte';
 	export let data;
-	let ready = false;
-	onMount(() => (ready = true));
+	export let pathname = '';
 </script>
 
 <header class="p-4 text-zinc-100">
@@ -29,7 +27,7 @@
 		</ul>
 		<a href="/" aria-label="Domu" class="flex items-center p-2">
 			<svg viewBox="0 0 200 200" class=" w-10 md:w-16 text-zinc-900" xmlns="http://www.w3.org/2000/svg">
-				{#if ready}
+				{#key pathname}
 					<path
 						in:draw={{ duration: 5000, delay: 500, easing: quintOut }}
 						d="M 167.919 98.112 A 65.282 65.282 0 0 1 102.637 163.394 A 65.282 65.282 0 0 1 37.355 98.112 A 65.282 65.282 0 0 1 102.637 32.83 A 65.282 65.282 0 0 1 167.919 98.112 Z"
@@ -83,7 +81,7 @@
 						style="stroke: #84cc16; stroke-width: 2px;"
 						fill="currentColor"
 					/>
-				{/if}
+				{/key}
 			</svg>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -100,8 +98,7 @@
 			</svg>
 		</a>
 		<div class="flex items-center md:space-x-4">
-				<Search {data}
-				/>
+			<Search {data} />
 		</div>
 		<a href="/about" class="p-4 lg:hidden">
 			<svg

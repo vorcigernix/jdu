@@ -7,7 +7,7 @@
 	export let data;
 </script>
 
-<Navigation {data} />
+<Navigation {data} pathname={$page.url.pathname} />
 <PageTransition pathname={$page.url.pathname}>
 	<slot />
 </PageTransition>
