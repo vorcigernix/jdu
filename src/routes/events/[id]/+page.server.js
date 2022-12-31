@@ -45,7 +45,7 @@ export async function load({ params, parent }) {
     if (params.id) {
         const { posts } = await parent();
         let data = (posts[params.id]);
-        console.log('parent', data);
+        //console.log('parent', data);
         //if (posts[params.id]) { return posts[params.id]; }
         const inputs = [{
             type: 'fetchEvent',
@@ -55,11 +55,11 @@ export async function load({ params, parent }) {
             console.warn("need to refetch");
             const res = await exmInstance.functions.write(functionId, inputs, true, false);
             data = await res.data.execution.result;
-            console.log('fetched', data);
+            //console.log('fetched', data);
         }
         if (!data) {
             data = cacheEventValue[0]['post'];
-            console.log('state', data);
+            //console.log('state', data);
         }
         if (!data) { throw error(404, 'Not found'); }
 
@@ -73,7 +73,7 @@ export async function load({ params, parent }) {
             bysetpos: data.pattern === '1' ? [Number(data.weeknum)] : null
         }, true);
 
-        console.log(rule);
+        //console.log(rule);
         //console.log("Rule ", rule.toText());
         let nextevents = [];
         let nextevent = new Date();
@@ -84,7 +84,7 @@ export async function load({ params, parent }) {
         }
         //console.log("data",data)
         //console.log("cache", cacheEventValue[0]['post'])
-        console.log(nextevents);
+        //console.log(nextevents);
 
         return { ...data, nextevents: nextevents.sort() };
     }
