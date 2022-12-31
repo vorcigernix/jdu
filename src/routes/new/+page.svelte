@@ -418,7 +418,6 @@
 		</div>
 
 		<div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2 md:p-12">
-			<img alt="ilustrace běžce" src="runner.svg" class=" h-full w-full object-contain" />
 		</div>
 	</section>
 {/if}

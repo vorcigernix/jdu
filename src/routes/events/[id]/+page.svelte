@@ -30,7 +30,7 @@
 		return att.username === form?.username || att.username === $userNameStore;
 	});
 
-	console.log('myatt', myAttendance);
+	//console.log('myatt', myAttendance);
 
 	let pendingAttendance;
 

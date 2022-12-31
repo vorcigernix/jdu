@@ -3,11 +3,11 @@
 
 body {
     font-family: 'Noto Sans', sans-serif;
-    background-image: url(../static/grain.png), url(../static/mesh.png);
+    background-image: url('/grain.png'), url('/mesh.png');
     background-blend-mode: overlay, normal;
     background-repeat: repeat, no-repeat;
     background-position: top left, bottom 5% right 5%;
-    background-size:40%, 30%;
+    background-size: 40%, 30%;
     background-attachment: fixed;
     @apply text-zinc-50 bg-zinc-900
 }
