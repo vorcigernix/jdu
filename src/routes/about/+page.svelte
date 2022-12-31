@@ -4,7 +4,9 @@
 			Otázky a odpovědi bez Moravce
 		</p>
 		<h2 class="mb-12 text-4xl font-bold leading-none text-center sm:text-5xl">O co tady de?</h2>
-		<div class="grid gap-10 md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32 rounded-2xl backdrop-blur bg-zinc-900/60">
+		<div
+			class="grid gap-10 md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32 rounded-2xl backdrop-blur bg-zinc-900/60"
+		>
 			<div>
 				<h3 class="font-semibold">K čemu tahle stránka jako je?</h3>
 				<p class="mt-1 text-zinc-200">
@@ -49,6 +51,14 @@
 					Ani autentikace, ani autorizace tady neni. Samotná aplikace o tobe defakto nic neukládá a
 					nic nekontroluje. To samozřejmě znamená, že pokud je tvůj kamarád idiot a napíše tvoje
 					jméno místo svojeho, tak ho to normálně pustí dál a může změnit jestli přijdeš nebo ne.
+				</p>
+			</div>
+			<div>
+				<h3 class="font-semibold">Kdo za timhle je?</h3>
+				<p class="mt-1 text-zinc-200">
+					No tak to nemůžu říct, ještěři hlídaj. Ale kdyby tě zajímalo něco o mě tak mrkni na <a
+						href="https://adamsobotka.deno.dev" class="font-bold text-lime-500">můj web</a
+					> tam je snad všechno důležitý.
 				</p>
 			</div>
 		</div>
