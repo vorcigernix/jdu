@@ -176,7 +176,7 @@
 					<div>
 						<button
 							name="attending"
-							class=" mt-8 inline-block rounded-full  bg-lime-500 px-5 py-3 font-bold text-zinc-900 hover:bg-lime-600"
+							class=" mt-8 inline-block rounded-full items-center  bg-lime-500 px-5 py-3 font-bold text-zinc-900 hover:bg-lime-600"
 						>
 							Potvrdit
 						</button>
