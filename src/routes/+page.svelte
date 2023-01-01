@@ -15,12 +15,12 @@
 				<div class="flex justify-center">
 					<a
 						href="/new"
-						class="inline-flex text-zinc-900 bg-lime-500 border-0 py-2 px-6 focus:outline-none hover:bg-lime-600 rounded-full text-lg"
+						class="inline-flex text-zinc-900 bg-lime-500 border-0 py-2 px-6 focus:outline-none hover:bg-lime-600 rounded-full text-sm md:text-lg"
 						><span class="text-xl mr-2 font-bold">* </span>Nová událost</a
 					>
 					<a
 						href="/about"
-						class="ml-4 rounded-full inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white text-lg"
+						class="ml-4 rounded-full inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white text-sm md:text-lg"
 						>O aplikaci</a
 					>
 				</div>
