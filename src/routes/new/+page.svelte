@@ -175,7 +175,7 @@
 						>
 							{#if freqradio != 0}
 								<input
-									type="number"
+									type="text"
 									class="text-center border-zinc-200 text-sm shadow-sm rounded-2xl outline-none appearance-none w-10 h-10 spin-button-none mr-4"
 									name="interval"
 									value="1"
